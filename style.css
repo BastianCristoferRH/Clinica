@@ -68,3 +68,54 @@ a:hover {
     background-color: goldenrod;
     color: white;
 }
+/* Estilos para el botón de menú */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    position: static; 
+    right: px; 
+    
+    
+}
+
+
+.menu-icon .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: 0.4s;
+    
+}
+
+/* Estilos para mostrar el menú en dispositivos móviles */
+@media screen and (max-width: 768px) {
+    nav{
+        background-color: transparent;
+    }
+    .menu-icon {
+        display: block;
+    }
+    ul#nav-links {
+        border-radius: 10px;
+        display: none;
+        flex-direction: column; 
+        background-color: green; 
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: 1; 
+    }
+    ul#nav-links.active {
+        display: flex;
+    }
+}
+
+
+@media screen and (min-width: 769px) {
+    ul#nav-links {
+        display: flex;
+    }
+}
+
+
