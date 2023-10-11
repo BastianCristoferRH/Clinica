@@ -1,11 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('.navbar-toggler').addEventListener('click', function () {
-        var navbarNav = document.querySelector('.navbar-collapse');
+    var navbarToggler = document.querySelector('.navbar-toggler');
+    var navbarNav = document.querySelector('.navbar-collapse');
+    var navLinks = document.querySelectorAll('.nav-link');
+
+
+    navbarToggler.addEventListener('click', function () {
         if (navbarNav.classList.contains('show')) {
             navbarNav.classList.remove('show');
         } else {
-            navbarNav.classList.add('show');
+            navbarNav.classList.add('show'); 
         }
+    });
+
+
+    navLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+            navbarNav.classList.remove('show'); 
+        });
     });
 
     window.addEventListener('scroll', function () {
@@ -15,14 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
         var scrollTop = window.scrollY;
 
         navLinks.forEach(function (link) {
-            var sectionId = link.getAttribute('href').substring(1); // Elimina el símbolo '#'
+            var sectionId = link.getAttribute('href').substring(1); 
             var section = document.getElementById(sectionId);
 
             if (isInViewport(section)) {
-                // Agregar una clase CSS al enlace activo
+
                 link.classList.add('active');
             } else {
-                // Eliminar la clase CSS del enlace no activo
                 link.classList.remove('active');
             }
         });
