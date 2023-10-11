@@ -1,32 +1,46 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const menuIcon = document.getElementById("menu-icon");
-    const navLinks = document.getElementById("nav-links");
-
-    menuIcon.addEventListener("click", function () {
-        navLinks.classList.toggle("active");
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('.navbar-toggler').addEventListener('click', function () {
+        var navbarNav = document.querySelector('.navbar-collapse');
+        if (navbarNav.classList.contains('show')) {
+            navbarNav.classList.remove('show');
+        } else {
+            navbarNav.classList.add('show');
+        }
     });
 
-    // Agregar un evento de clic a las opciones del menú
-    const menuItems = document.querySelectorAll("#nav-links li a");
-    menuItems.forEach((item) => {
-        item.addEventListener("click", function () {
-            navLinks.classList.remove("active");
-        });
-    });
+    window.addEventListener('scroll', function () {
+        var navLinks = document.querySelectorAll('.nav-link');
+        var nav = document.querySelector('.navbar');
+        var container = document.querySelector('.container-full');
+        var scrollTop = window.scrollY;
 
-    window.addEventListener("scroll", function () {
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll("#nav-links li a");
+        navLinks.forEach(function (link) {
+            var sectionId = link.getAttribute('href').substring(1); // Elimina el símbolo '#'
+            var section = document.getElementById(sectionId);
 
-        sections.forEach((section, index) => {
-            const rect = section.getBoundingClientRect();
-
-            if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                navLinks.forEach((link) => {
-                    link.classList.remove("active");
-                });
-                navLinks[index].classList.add("active");
+            if (isInViewport(section)) {
+                // Agregar una clase CSS al enlace activo
+                link.classList.add('active');
+            } else {
+                // Eliminar la clase CSS del enlace no activo
+                link.classList.remove('active');
             }
         });
+
+        if (scrollTop >= container.offsetTop) {
+            nav.classList.add('fixed');
+        } else {
+            nav.classList.remove('fixed');
+        }
     });
+
+    function isInViewport(element) {
+        var rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
 });
